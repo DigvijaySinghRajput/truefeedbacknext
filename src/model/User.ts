@@ -28,7 +28,7 @@ export interface User extends Document {
   message: Message[];
 }
 
-const UserSchema: Schema<User> = new Schema({
+const UserSchema: Schema<User> = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Username is required"],
@@ -49,6 +49,7 @@ const UserSchema: Schema<User> = new Schema({
     required: true,
   },
   verifytoken: {
+    type: String,
     required: [true, "Verify token is required"],
   },
   verifytokenExpiry: {
