@@ -30,14 +30,19 @@ export async function POST(request: Request) {
     isAcceptingMessage: acceptMessageSchema,
   });
 
-  const { acceptmessage } = await request.json();
+  const { acceptMessage } = await request.json();
 
   const Acceptmsgobj = {
-    isAcceptingMessage: { acceptMessage: acceptmessage },
+    /*this should match with the object key you made above*/ isAcceptingMessage:
+      {
+        /*this part if from schema should match schema key*/ acceptMessage:
+          /*this is destructured from frontend*/ acceptMessage,
+      },
   };
 
-  const result = AcceptmsgSchema.safeParse(Acceptmsgobj);
-  const acceptMessage = result.data;
+  const result = AcceptmsgSchema.safeParse(Acceptmsgobj); // passed the above object to z.object made above
+
+  const Message = result.data;
   if (!result.success) {
     const acceptmsgerr = result.error.issues || [];
     return Response.json(
@@ -57,7 +62,7 @@ export async function POST(request: Request) {
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
       {
-        isAcceptingMessages: acceptMessage,
+        isAcceptingMessages: Message?.isAcceptingMessage.acceptMessage, // as message is same as z.object made here so to get message first . for isAcceptingMessage and second . for acceptMessage
       },
       { new: true }
     );

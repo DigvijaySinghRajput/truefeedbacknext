@@ -60,6 +60,10 @@ const UserSchema: Schema<User> = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isAcceptingMessages: {
+    type: Boolean,
+    default: true,
+  },
   message: {
     type: [MessageSchema],
   },

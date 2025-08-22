@@ -68,11 +68,11 @@ function page() {
     setIsSubmitting(true);
     try {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
-      toast("Success", {
+      toast("Signup Message", {
         description: response.data.message,
-        className: "bg-green-600 text-white border border-red-700",
+        className: "bg-green-600 text-black border border-red-700",
       });
-      router.replace(`/verify/${username}`);
+      if (response.status === 201) router.replace(`/verify/${username}`);
       setIsSubmitting(false);
     } catch (error) {
       console.log("Error in signup of user", error);
@@ -81,7 +81,7 @@ function page() {
       let errorMessage = axiosError.response?.data.message;
       toast("Signup failed", {
         description: errorMessage,
-        className: "bg-red-600 text-white border border-red-700",
+        className: "bg-red-600 text-black border border-red-700",
       });
       setIsSubmitting(false);
     }
