@@ -1,17 +1,27 @@
 [
   {
-    "title": "Message from User123",
-    "content": "Hey, how are you doing today?",
-    "received": "10 minutes ago"
+    "title": "New Message",
+    "content": "Hey! Just wanted to check in and see how your day is going. 😊",
+    "received": "5 minutes ago"
   },
   {
-    "title": "Message from SecretAdmirer",
-    "content": "I really liked your recent post!",
-    "received": "2 hours ago"
+    "title": "New Message",
+    "content": "I loved your latest post! Keep sharing such amazing content.",
+    "received": "30 minutes ago"
   },
   {
-    "title": "Message from MysteryGuest",
-    "content": "Do you have any book recommendations?",
-    "received": "1 day ago"
+    "title": "New Message",
+    "content": "You always inspire me to try new things. Thank you for sharing your journey!",
+    "received": "1 hour ago"
+  },
+  {
+    "title": "New Message",
+    "content": "Do you have any recommendations for a good mystery novel? I'm looking for something thrilling!",
+    "received": "3 hours ago"
+  },
+  {
+    "title": "New Message",
+    "content": "Hey! Are you up for a weekend adventure? Found some amazing spots to explore.",
+    "received": "Yesterday"
   }
 ]
