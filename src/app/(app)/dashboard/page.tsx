@@ -1,5 +1,4 @@
 "use client";
-import MessageCard from "@/components/message";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
@@ -14,10 +13,12 @@ import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-
+import MessageSkeleton from "@/components/messageSkeleton";
+import MessageCard from "@/components/message";
+import { string } from "zod";
 function page() {
   const [message, setMessage] = useState<Message[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
 
   const handleDeleteMessage = (messageId: string) => {
@@ -42,12 +43,12 @@ function page() {
       const axiosError = error as AxiosError<ApiResponse>;
       toast("Error", {
         description: (
-          <span className="text-black">
+          <span className="text-foreground">
             {axiosError.response?.data.message} || "Failed to fetch message
             setting"
           </span>
         ),
-        className: "bg-red-600 text-black border border-red-700",
+        className: "bg-background text-black border border-red-700",
       });
     } finally {
       setIsSwitchLoading(false);
@@ -65,7 +66,7 @@ function page() {
         if (refresh) {
           toast("Refreshed Message", {
             description: (
-              <span className="text-black ">Showing latest messages</span>
+              <span className="text-foreground ">Showing latest messages</span>
             ),
           });
         }
@@ -73,12 +74,12 @@ function page() {
         const axiosError = error as AxiosError<ApiResponse>;
         toast("Error", {
           description: (
-            <span className="text-black">
+            <span className="text-foreground">
               {axiosError.response?.data.message} || "Failed to fetch message
               setting"
             </span>
           ),
-          className: "bg-red-600 text-black border border-red-700",
+          className: "bg-background text-black border border-red-700",
         });
       } finally {
         setIsLoading(false);
@@ -105,7 +106,7 @@ function page() {
       const axiosError = error as AxiosError<ApiResponse>;
       toast("Error", {
         description: (
-          <span className="text-black-500">
+          <span className="text-black">
             {axiosError.response?.data.message} || "Failed to fetch message
             setting"
           </span>
@@ -135,9 +136,11 @@ function page() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen py-8 px-4 md:px-8">
-      <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6  bg-gray-200 rounded w-full max-w-8xl">
-        <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+    <div className="bg-background min-h-screen pt-20 py-8 px-4 md:px-8">
+      <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6  bg-card rounded w-full max-w-7xl">
+        <h1 className="text-4xl text-foreground font-bold mb-4">
+          User Dashboard
+        </h1>
 
         <div className="mb-4">
           <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{" "}
@@ -146,7 +149,7 @@ function page() {
               type="text"
               value={profileUrl}
               disabled
-              className="input input-bordered w-2xs p-2 mr-2 border-2 border-gray-400"
+              className="input input-bordered w-2xs p-2 mr-2 border-2 border-border"
             />
             <Button onClick={copyToClipboard}>Copy</Button>
           </div>
@@ -174,13 +177,19 @@ function page() {
           }}
         >
           {isLoading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+            </>
           ) : (
             <RefreshCcw className="h-4 w-4" />
           )}
         </Button>
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {message.length > 0 ? (
+          {isLoading ? (
+            Array(6)
+              .fill(0)
+              .map((_, index) => <MessageSkeleton key={index} />)
+          ) : message.length > 0 ? (
             message.map((message, index) => (
               <MessageCard
                 key={String(message._id)}
@@ -189,7 +198,7 @@ function page() {
               />
             ))
           ) : (
-            <p>No messages to display.</p>
+            <p>No Messages To Display</p>
           )}
         </div>
       </div>

@@ -1,13 +1,5 @@
 "use client";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -50,14 +42,17 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
           </CardTitle>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive">
-                <X className="w-5 h-5" />
+              <Button
+                variant="destructive"
+                className="text-red-300 hover:text-red-700 dark:hover:text-foreground"
+              >
+                <X className="w-5 h-5 " />
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
+                <AlertDialogDescription className="text-foreground">
                   This action cannot be undone. This will permanently delete
                   your account and remove your data from our servers.
                 </AlertDialogDescription>
@@ -73,7 +68,7 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
         </div>
       </CardHeader>
       <CardFooter>
-        <span className="text-ms text-gray-900">
+        <span className="text-ms text-foreground">
           {dayjs(message.createdAt).format("DD MMM YYYY, hh:mm A")}
         </span>
       </CardFooter>

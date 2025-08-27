@@ -7,6 +7,8 @@ import { Input } from "./ui/input";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
+import ModeToggle from "./theme-toggle-button";
+import { Separator } from "@/components/ui/separator";
 
 function navbar() {
   const { data: session } = useSession();
@@ -41,9 +43,9 @@ function navbar() {
 
   return (
     <div>
-      <nav className="p-4 md:p-6 shadow-md bg-gray-700 text-white">
+      <nav className="fixed top-0 left-0 w-full z-50 p-4 md:p-6 shadow-md bg-background/100 dark:bg-background/100 text-foreground border-b border-border">
         <div className="container mx-auto flex flex-col md:flex-row items-center">
-          <a href="/" className="text-xl font-bold mb-4 md:mb-0">
+          <a href="/" className="text-xl font-bold mb-4 md:mb-0 text-left">
             Mystry World
           </a>
 
@@ -54,7 +56,7 @@ function navbar() {
                   Welcome, {user?.username || user?.email}
                 </span>
                 <Button
-                  className="bg-slate-100 text-black"
+                  className="bg-background text-foreground"
                   variant="outline"
                   onClick={() => signOut()}
                 >
@@ -64,12 +66,18 @@ function navbar() {
             ) : (
               <>
                 <Link href="/sign-in">
-                  <Button className="bg-slate-100 text-black" variant="outline">
+                  <Button
+                    className="bg-slate-100 text-foreground"
+                    variant="outline"
+                  >
                     Login
                   </Button>
                 </Link>
                 <Link href="/sign-up">
-                  <Button className="bg-slate-100 text-black" variant="outline">
+                  <Button
+                    className="bg-slate-100 text-foreground"
+                    variant="outline"
+                  >
                     Create Account
                   </Button>
                 </Link>
@@ -83,7 +91,7 @@ function navbar() {
                 className="w-full"
               />
               {searchedName.length > 0 && (
-                <div className="absolute top-full left-0 right-0 bg-white text-black mt-1 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto border border-gray-200">
+                <div className="absolute top-full left-0 right-0 bg-background text-foreground mt-1 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto border border-gray-200">
                   {isSearching ? (
                     <div className="px-4 py-3 text-gray-500 text-center flex items-center justify-center gap-2">
                       <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
@@ -94,20 +102,21 @@ function navbar() {
                       const profileUrl = `/dm/${value}`;
                       return (
                         <a target="_blank" href={profileUrl} key={index}>
-                          <div className="px-4 py-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors duration-150">
+                          <div className="px-4 py-3 hover:bg-accent cursor-pointer border-b border-border last:border-b-0 transition-colors duration-150">
                             {value}
                           </div>
                         </a>
                       );
                     })
                   ) : (
-                    <div className="px-4 py-3 text-gray-500 text-center">
+                    <div className="px-4 py-3 text-foreground text-center">
                       No user found
                     </div>
                   )}
                 </div>
               )}
             </div>
+            <ModeToggle />
           </div>
         </div>
       </nav>
