@@ -44,46 +44,20 @@ function navbar() {
   return (
     <div>
       <nav className="fixed top-0 left-0 w-full z-50 p-4 md:p-6 shadow-md bg-background/100 dark:bg-background/100 text-foreground border-b border-border">
-        <div className="container mx-auto flex flex-col md:flex-row items-center">
+        <div className="container mx-auto flex relative justify-between md:flex-row items-center">
           <a href="/" className="text-xl font-bold mb-4 md:mb-0 text-left">
             Mystry World
           </a>
 
-          <div className="flex items-center gap-4 ml-auto">
-            {session ? (
-              <>
-                <span className="hidden md:inline">
-                  Welcome, {user?.username || user?.email}
-                </span>
-                <Button
-                  className="bg-background text-foreground"
-                  variant="outline"
-                  onClick={() => signOut()}
-                >
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <>
-                <Link href="/sign-in">
-                  <Button
-                    className="bg-slate-100 text-foreground"
-                    variant="outline"
-                  >
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/sign-up">
-                  <Button
-                    className="bg-slate-100 text-foreground"
-                    variant="outline"
-                  >
-                    Create Account
-                  </Button>
-                </Link>
-              </>
-            )}
+          {session && (
+            <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block">
+              <span className="font-medium">
+                Mystery awaits, {user?.username}
+              </span>
+            </div>
+          )}
 
+          <div className="flex items-center gap-4 absolute right-0">
             <div className="relative w-64 md:w-80">
               <Input
                 placeholder="Search Username"
@@ -116,6 +90,37 @@ function navbar() {
                 </div>
               )}
             </div>
+            {session ? (
+              <>
+                <Button
+                  className="bg-background text-foreground"
+                  variant="outline"
+                  onClick={() => signOut()}
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/sign-in">
+                  <Button
+                    className="bg-slate-100 text-foreground"
+                    variant="outline"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/sign-up">
+                  <Button
+                    className="bg-slate-100 text-foreground"
+                    variant="outline"
+                  >
+                    Create Account
+                  </Button>
+                </Link>
+              </>
+            )}
+
             <ModeToggle />
           </div>
         </div>
