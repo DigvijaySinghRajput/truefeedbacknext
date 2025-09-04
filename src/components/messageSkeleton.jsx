@@ -16,10 +16,10 @@ function messageSkeleton() {
 
           <Skeleton className="w-5 h-5 bg-gray-300" />
         </div>
+        <div className="flex">
+          <Skeleton className="h-4 w-32 bg-gray-300" />
+        </div>
       </CardHeader>
-      <div>
-        <Skeleton className="h-4 w-32 bg-gray-300" />
-      </div>
     </Card>
   );
 }

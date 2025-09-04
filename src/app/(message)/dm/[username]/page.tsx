@@ -57,8 +57,8 @@ function SendMessage() {
         description: `Fetching Message`,
       });
       complete("");
-      toast("Message Generated", {
-        description: `Messages Generated`,
+      toast("Getting Messages", {
+        description: `Messages are being Generated`,
       });
     } catch (error) {
       toast("Error ", {
